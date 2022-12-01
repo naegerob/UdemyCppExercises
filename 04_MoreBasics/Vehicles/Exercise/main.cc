@@ -3,13 +3,13 @@
 #include <numeric>
 
 #include "AdFunctions.hpp"
-#include "AdTypes.hpp"
+#include "AdTypes.hpp"  
 
 int main()
 {
     auto ego_vehicle = VehicleType{};
-    auto vehicles = NeighborVehiclesType{};
-
+    auto vehicles = NeighbourVehiclesType{};
+    
     init_ego_vehicle(ego_vehicle);
     init_vehicles(vehicles);
 
