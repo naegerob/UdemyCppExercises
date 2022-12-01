@@ -34,3 +34,50 @@ int main()
 
     return 0;
 }
+
+
+bool is_numeric(char character)
+{
+    return 57 >= character && character >= 48;
+}
+
+
+bool is_alpha(char character)
+{
+    return 122 >= character && character >= 65;
+}
+
+
+bool is_alpha_numeric(char character)
+{
+    return is_alpha(character) || is_numeric(character);
+}
+
+bool is_upper_case(char character)
+{
+    return 90 >= character && character >= 65; 
+}
+
+bool is_lower_case(char character)
+{
+    return 122 >= character && character >= 97; 
+}
+
+char to_upper_case(char character)
+{
+    if(is_upper_case(character))
+    {
+        return character;
+    }
+    return character - 32;
+
+}
+
+char to_lower_case(char character)
+{
+    if(is_lower_case(character))
+    {
+        return character;
+    }
+    return (character + 32);
+}
