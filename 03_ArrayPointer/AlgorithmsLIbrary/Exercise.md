@@ -37,7 +37,7 @@ std::int32_t *inclusive_scan(const std::int32_t *array,
   - E.g. none_of([1, 1, 2], 3, 1) => false
 - Count
   - Counts the elements in the array that are equal to the **value**
-  - E.g. count([1, 1, 1], 3, 1) => 3
+  - E.g. count([1, 1, 1], 3, 1) => 3s
   - E.g. count([1, 1, 2], 3, 1) => 2
 - Inclusive Scan
   - Sum up all elements in the **array** for index $n$ from index 0 to $n$
