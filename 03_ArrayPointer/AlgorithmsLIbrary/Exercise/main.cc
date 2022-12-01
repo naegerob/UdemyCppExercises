@@ -40,3 +40,108 @@ int main()
 
     return 0;
 }
+
+
+bool all_of(const std::int32_t *array,
+            const std::size_t length,
+            const std::int32_t value)
+{
+    if(array == nullptr)
+    {
+        return false;
+    }
+    std::int32_t counter = 0;
+
+    while (counter < length)
+    {
+        if (*array != value)
+        {
+            return false;
+        }
+        array++;
+        counter++;
+    }
+    return true; 
+}
+
+bool any_of(const std::int32_t *array,
+            const std::size_t length,
+            const std::int32_t value)
+{
+    if(array == nullptr)
+    {
+        return false;
+    }
+    std::int32_t counter = 0;
+
+    while (counter < length)
+    {
+        if (*array == value)
+        {
+            return true;
+        }
+        array++;
+        counter++;
+    }
+    return false; 
+}
+
+
+bool none_of(const std::int32_t *array,
+             const std::size_t length,
+             const std::int32_t value)
+{
+    if(array == nullptr)
+    {
+        return false;
+    }
+
+    std::int32_t counter = 0;
+
+    while (counter < length)
+    {
+        if (*array == value)
+        {
+            return false;
+        }
+        array++;
+        counter++;
+    }
+    return true; 
+}
+
+std::size_t count(const std::int32_t *array,
+                  const std::size_t length,
+                  const std::int32_t value)
+{
+    std::int32_t counter = 0;
+    std::int32_t valcounter = 0;
+
+    if(array == nullptr)
+    {
+        return 0;
+    }
+
+    while (counter < length)
+    {
+        if (*array == value)
+        {
+            valcounter++;
+        }
+        array++;
+        counter++;
+    }
+    return valcounter; 
+}
+
+std::int32_t *inclusive_scan(const std::int32_t *array,
+                             const std::size_t length)
+{
+    std::int32_t sumarray[length] = {0};
+
+    std::int32_t counter = 0;
+    std::int32_t counter2;
+    // @todo aölksdjfölkajsdf
+    return 0;
+
+}
