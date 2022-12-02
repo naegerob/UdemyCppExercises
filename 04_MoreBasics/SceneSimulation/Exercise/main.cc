@@ -17,7 +17,7 @@ int main()
     print_neighbor_vehicles(vehicles);
     
     print_scene(ego_vehicle, vehicles);
-
+/*
     std::cout << "Compute forward (1sec)?: ";
     auto Input = char{};
     std::cin >> Input;
@@ -30,7 +30,6 @@ int main()
         std::cout << "Compute forward (1sec)?: ";
         std::cin >> Input;
     }
-
-    return 0;
+*/
     return 0;
 }

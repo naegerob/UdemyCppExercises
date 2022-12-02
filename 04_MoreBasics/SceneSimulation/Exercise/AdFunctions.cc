@@ -35,7 +35,7 @@ void init_vehicles(NeighborVehiclesType &vehicles)
     init_vehicle(vehicles.vehicles_left_lane[0],
                  0,
                  130.0F,
-                 80.0F,
+                 -80.0F,
                  LaneAssociationType::LEFT);
     init_vehicle(vehicles.vehicles_left_lane[1],
                  1,
@@ -45,22 +45,22 @@ void init_vehicles(NeighborVehiclesType &vehicles)
     init_vehicle(vehicles.vehicles_center_lane[0],
                  2,
                  80.0F,
-                 50.0F,
+                 80.0F,
                  LaneAssociationType::CENTER);
     init_vehicle(vehicles.vehicles_center_lane[1],
                  3,
                  120.0F,
-                 -50.0F,
+                 -60.0F,
                  LaneAssociationType::CENTER);
     init_vehicle(vehicles.vehicles_right_lane[0],
                  4,
                  110.0F,
-                 30.0F,
+                 20.0F,
                  LaneAssociationType::RIGHT);
     init_vehicle(vehicles.vehicles_right_lane[1],
                  5,
                  90.0F,
-                 -30.0F,
+                 -40.0F,
                  LaneAssociationType::RIGHT);
 }
 
@@ -80,4 +80,66 @@ void print_neighbor_vehicles(const NeighborVehiclesType &vehicles)
     print_vehicle(vehicles.vehicles_center_lane[1]);
     print_vehicle(vehicles.vehicles_right_lane[0]);
     print_vehicle(vehicles.vehicles_right_lane[1]);
+}
+
+
+void print_scene(const VehicleType &ego_vehicle,
+                 const NeighborVehiclesType &vehicles)
+{
+    std::int16_t position = 100;
+    std::cout << "\t  L    C    R  " << std::endl;
+    while(position >= -100)
+    {
+        std::cout << position << "\t| ";
+        // Left Lane
+        if(vehicles.vehicles_left_lane[0].distance_m == position ||
+            vehicles.vehicles_left_lane[1].distance_m == position)
+        {
+            std::cout << "V";
+        }
+        else
+        {
+            std::cout << " ";
+        }
+        std::cout << " | ";
+        // Center Lane
+        if(position == 0)
+        {
+            std::cout << "E";
+        }
+        else{
+            if(vehicles.vehicles_center_lane[0].distance_m == position ||
+                vehicles.vehicles_center_lane[1].distance_m == position)
+            {
+                std::cout << "V";
+            }
+            else
+            {
+                std::cout << " ";
+            }
+        }
+        std::cout << " | ";
+        // Right Lane
+
+        if(vehicles.vehicles_right_lane[0].distance_m == position ||
+            vehicles.vehicles_right_lane[1].distance_m == position)
+        {
+            std::cout << "V";
+        }
+        else
+        {
+            std::cout << " ";
+        }
+        
+        std::cout << " |\n";
+        position -= 20;
+    }
+}
+void compute_future_state(const VehicleType &ego_vehicle,
+                          NeighborVehiclesType &vehicles,
+                          const float seconds)
+{
+    
+
+    
 }

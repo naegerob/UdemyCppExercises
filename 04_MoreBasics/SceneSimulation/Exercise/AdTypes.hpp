@@ -4,7 +4,7 @@
 
 #include "AdConstants.hpp"
 
-enum class LaneAssociationType
+enum LaneAssociationType
 {
     LEFT,
     CENTER,
