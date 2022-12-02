@@ -50,12 +50,12 @@ void init_vehicles(NeighborVehiclesType &vehicles)
     init_vehicle(vehicles.vehicles_center_lane[1],
                  3,
                  120.0F,
-                 -60.0F,
+                 70.0F,
                  LaneAssociationType::CENTER);
     init_vehicle(vehicles.vehicles_right_lane[0],
                  4,
                  110.0F,
-                 20.0F,
+                 30.0F,
                  LaneAssociationType::RIGHT);
     init_vehicle(vehicles.vehicles_right_lane[1],
                  5,
@@ -86,14 +86,15 @@ void print_neighbor_vehicles(const NeighborVehiclesType &vehicles)
 void print_scene(const VehicleType &ego_vehicle,
                  const NeighborVehiclesType &vehicles)
 {
+    (void)& ego_vehicle; // disable compiler warning
     std::int16_t position = 100;
     std::cout << "\t  L    C    R  " << std::endl;
     while(position >= -100)
     {
         std::cout << position << "\t| ";
         // Left Lane
-        if(vehicles.vehicles_left_lane[0].distance_m == position ||
-            vehicles.vehicles_left_lane[1].distance_m == position)
+        if(std::abs(vehicles.vehicles_left_lane[0].distance_m - position) <= IN_RANGE ||
+            std::abs(vehicles.vehicles_left_lane[1].distance_m - position) <= IN_RANGE)
         {
             std::cout << "V";
         }
@@ -108,8 +109,8 @@ void print_scene(const VehicleType &ego_vehicle,
             std::cout << "E";
         }
         else{
-            if(vehicles.vehicles_center_lane[0].distance_m == position ||
-                vehicles.vehicles_center_lane[1].distance_m == position)
+            if(std::abs(vehicles.vehicles_center_lane[0].distance_m - position) <= IN_RANGE ||
+                std::abs(vehicles.vehicles_center_lane[1].distance_m - position) <= IN_RANGE)
             {
                 std::cout << "V";
             }
@@ -121,8 +122,8 @@ void print_scene(const VehicleType &ego_vehicle,
         std::cout << " | ";
         // Right Lane
 
-        if(vehicles.vehicles_right_lane[0].distance_m == position ||
-            vehicles.vehicles_right_lane[1].distance_m == position)
+        if(std::abs(vehicles.vehicles_right_lane[0].distance_m - position) <= IN_RANGE ||
+            std::abs(vehicles.vehicles_right_lane[1].distance_m - position) <= IN_RANGE)
         {
             std::cout << "V";
         }
