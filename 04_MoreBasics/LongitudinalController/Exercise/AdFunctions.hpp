@@ -18,3 +18,9 @@ void print_scene(const VehicleType &ego_vehicle,
 void compute_future_state(const VehicleType &ego_vehicle,
                           NeighborVehiclesType &vehicles,
                           const float seconds);
+
+float mps_to_kph(const float mps);
+
+void decrease_speed(VehicleType &ego_vehicle);
+
+void longitudinal_control(const VehicleType &front_vehicle, VehicleType &ego_vehicle);

@@ -241,3 +241,22 @@ void longitudinal_control(const VehicleType &front_vehicle,
         decrease_speed(ego_vehicle);
     }
 }
+
+const VehicleType *get_vehicle_array(const LaneAssociationType lane, const NeighborVehiclesType &vehicles)
+{
+    switch (lane)
+    {
+        case LEFT:
+            return vehicles.vehicles_left_lane;
+            break;
+        case CENTER:
+            return vehicles.vehicles_center_lane;
+            break;
+        case RIGHT:
+            return vehicles.vehicles_right_lane;
+            break;  
+        default:
+            break;
+    }
+    return nullptr;
+}

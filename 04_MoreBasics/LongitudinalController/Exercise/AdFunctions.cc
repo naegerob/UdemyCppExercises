@@ -91,7 +91,7 @@ void print_scene(const VehicleType &ego_vehicle,
     auto center_idx = std::size_t{0};
     auto right_idx = std::size_t{0};
 
-    const std::int32_t offset_m = 20;
+    const std::int32_t offset_m = 10;
     const std::int32_t view_range_m = static_cast<std::int32_t>(VIEW_RANGE_M);
 
     for (std::int32_t i = view_range_m; i >= -view_range_m; i -= offset_m)
@@ -161,7 +161,9 @@ void print_scene(const VehicleType &ego_vehicle,
 
         std::cout << i << "\t| " << left_string << " | " << center_string
                   << " | " << right_string << " | \n";
+        
     }
+    std::cout << "E: " << ego_vehicle.speed_mps << " mps\n";
 }
 
 void compute_future_distance(VehicleType &vehicle,
@@ -170,7 +172,7 @@ void compute_future_distance(VehicleType &vehicle,
 {
     const float driven_distance = vehicle.speed_mps * seconds;
 
-    vehicle.distance_m += (driven_distance - ego_driven_distance);
+    vehicle.distance_m -= (driven_distance - ego_driven_distance);
 }
 
 void compute_future_state(const VehicleType &ego_vehicle,
@@ -197,4 +199,25 @@ void compute_future_state(const VehicleType &ego_vehicle,
     compute_future_distance(vehicles.vehicles_right_lane[1],
                             ego_driven_distance,
                             seconds);
+}
+
+float mps_to_kph(const float mps)
+{
+    return mps * 3.6F;
+}
+
+void decrease_speed(VehicleType &ego_vehicle)
+{
+    ego_vehicle.speed_mps *= LONGITUDINAL_DIFFERENCE_PERCENTAGE;
+}
+
+void longitudinal_control(const VehicleType &front_vehicle, VehicleType &ego_vehicle)
+{
+    if(front_vehicle.lane == ego_vehicle.lane &&
+        front_vehicle.distance_m > ego_vehicle.distance_m &&
+        front_vehicle.distance_m < mps_to_kph(ego_vehicle.speed_mps)/2U)
+    {
+        decrease_speed(ego_vehicle); 
+    }
+    
 }

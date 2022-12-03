@@ -17,19 +17,19 @@ int main()
     print_neighbor_vehicles(vehicles);
     
     print_scene(ego_vehicle, vehicles);
-/*
-    std::cout << "Compute forward (1sec)?: ";
-    auto Input = char{};
+
+    float seconds;
+    char Input;
+    std::cout << "Insert amount of seconds: ";
     std::cin >> Input;
+    seconds = static_cast<std::uint32_t> (Input) - 48U;
 
-    while (Input == 'y')
-    {
-        compute_future_state(ego_vehicle, vehicles, 1);
-        print_scene(ego_vehicle, vehicles);
+    compute_future_state(ego_vehicle, vehicles, seconds);
 
-        std::cout << "Compute forward (1sec)?: ";
-        std::cin >> Input;
-    }
-*/
+    print_neighbor_vehicles(vehicles);
+    print_scene(ego_vehicle, vehicles);
+
+
+
     return 0;
 }

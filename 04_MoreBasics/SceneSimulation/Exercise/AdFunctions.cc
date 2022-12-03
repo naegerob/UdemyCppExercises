@@ -35,22 +35,22 @@ void init_vehicles(NeighborVehiclesType &vehicles)
     init_vehicle(vehicles.vehicles_left_lane[0],
                  0,
                  130.0F,
-                 -80.0F,
+                 90.0F,
                  LaneAssociationType::LEFT);
     init_vehicle(vehicles.vehicles_left_lane[1],
                  1,
                  80.0F,
-                 -20.0F,
+                 -10.0F,
                  LaneAssociationType::LEFT);
     init_vehicle(vehicles.vehicles_center_lane[0],
                  2,
                  80.0F,
-                 80.0F,
+                 70.0F,
                  LaneAssociationType::CENTER);
     init_vehicle(vehicles.vehicles_center_lane[1],
                  3,
                  120.0F,
-                 70.0F,
+                 -50.0F,
                  LaneAssociationType::CENTER);
     init_vehicle(vehicles.vehicles_right_lane[0],
                  4,
@@ -86,61 +86,92 @@ void print_neighbor_vehicles(const NeighborVehiclesType &vehicles)
 void print_scene(const VehicleType &ego_vehicle,
                  const NeighborVehiclesType &vehicles)
 {
-    (void)& ego_vehicle; // disable compiler warning
-    std::int16_t position = 100;
-    std::cout << "\t  L    C    R  " << std::endl;
-    while(position >= -100)
-    {
-        std::cout << position << "\t| ";
-        // Left Lane
-        if(std::abs(vehicles.vehicles_left_lane[0].distance_m - position) <= IN_RANGE ||
-            std::abs(vehicles.vehicles_left_lane[1].distance_m - position) <= IN_RANGE)
-        {
-            std::cout << "V";
-        }
-        else
-        {
-            std::cout << " ";
-        }
-        std::cout << " | ";
-        // Center Lane
-        if(position == 0)
-        {
-            std::cout << "E";
-        }
-        else{
-            if(std::abs(vehicles.vehicles_center_lane[0].distance_m - position) <= IN_RANGE ||
-                std::abs(vehicles.vehicles_center_lane[1].distance_m - position) <= IN_RANGE)
-            {
-                std::cout << "V";
-            }
-            else
-            {
-                std::cout << " ";
-            }
-        }
-        std::cout << " | ";
-        // Right Lane
+    std::cout << "    \t   L     C     R  \n";
 
-        if(std::abs(vehicles.vehicles_right_lane[0].distance_m - position) <= IN_RANGE ||
-            std::abs(vehicles.vehicles_right_lane[1].distance_m - position) <= IN_RANGE)
+    auto left_idx = std::size_t{0};
+    auto center_idx = std::size_t{0};
+    auto right_idx = std::size_t{0};
+
+    const std::int32_t offset_m = 20;
+    const std::int32_t view_range_m = static_cast<std::int32_t>(VIEW_RANGE_M);
+
+    for (std::int32_t i = view_range_m; i >= -view_range_m; i -= offset_m)
+    {
+        const float range_m = static_cast<float>(i);
+
+        const auto left_vehicle = (left_idx < NUM_VEHICLES_ON_LANE)
+                                      ? &vehicles.vehicles_left_lane[left_idx]
+                                      : nullptr;
+        const auto center_vehicle =
+            (center_idx < NUM_VEHICLES_ON_LANE)
+                ? &vehicles.vehicles_center_lane[center_idx]
+                : nullptr;
+        const auto right_vehicle =
+            (right_idx < NUM_VEHICLES_ON_LANE)
+                ? &vehicles.vehicles_right_lane[right_idx]
+                : nullptr;
+
+        char left_string[]{"   "};
+        char center_string[]{"   "};
+        char right_string[]{"   "};
+
+        if ((range_m >= ego_vehicle.distance_m) &&
+            (ego_vehicle.distance_m > (range_m - offset_m)))
         {
-            std::cout << "V";
+            center_string[1] = 'E';
         }
-        else
+
+        if ((left_vehicle != nullptr) &&
+            (range_m >= left_vehicle->distance_m) &&
+            (left_vehicle->distance_m > (range_m - offset_m)))
         {
-            std::cout << " ";
+            left_string[1] = 'V';
+            left_idx++;
         }
-        
-        std::cout << " |\n";
-        position -= 20;
+        else if ((left_vehicle != nullptr) &&
+                 (std::abs(left_vehicle->distance_m) > VIEW_RANGE_M))
+        {
+            left_idx++;
+        }
+
+        if ((center_vehicle != nullptr) &&
+            (range_m >= center_vehicle->distance_m) &&
+            (center_vehicle->distance_m > (range_m - offset_m)))
+        {
+            center_string[1] = 'V';
+            center_idx++;
+        }
+        else if ((center_vehicle != nullptr) &&
+                 (std::abs(center_vehicle->distance_m) > VIEW_RANGE_M))
+        {
+            center_idx++;
+        }
+
+        if ((right_vehicle != nullptr) &&
+            (range_m >= right_vehicle->distance_m) &&
+            (right_vehicle->distance_m > (range_m - offset_m)))
+        {
+            right_string[1] = 'V';
+            right_idx++;
+        }
+        else if ((right_vehicle != nullptr) &&
+                 (std::abs(right_vehicle->distance_m) > VIEW_RANGE_M))
+        {
+            right_idx++;
+        }
+
+        std::cout << i << "\t| " << left_string << " | " << center_string
+                  << " | " << right_string << " | \n";
     }
 }
 void compute_future_state(const VehicleType &ego_vehicle,
                           NeighborVehiclesType &vehicles,
                           const float seconds)
-{
-    
-
-    
+{    
+    vehicles.vehicles_left_lane[0].distance_m -= seconds * (vehicles.vehicles_left_lane[0].speed_mps - ego_vehicle.speed_mps);
+    vehicles.vehicles_left_lane[1].distance_m -= seconds * (vehicles.vehicles_left_lane[1].speed_mps - ego_vehicle.speed_mps);
+    vehicles.vehicles_center_lane[0].distance_m -= seconds * (vehicles.vehicles_left_lane[0].speed_mps - ego_vehicle.speed_mps);
+    vehicles.vehicles_center_lane[1].distance_m -= seconds * (vehicles.vehicles_center_lane[1].speed_mps - ego_vehicle.speed_mps);
+    vehicles.vehicles_right_lane[0].distance_m -= seconds * (vehicles.vehicles_left_lane[0].speed_mps - ego_vehicle.speed_mps);
+    vehicles.vehicles_right_lane[1].distance_m -= seconds * (vehicles.vehicles_right_lane[1].speed_mps - ego_vehicle.speed_mps);
 }
