@@ -39,14 +39,21 @@ void replace_all(std::string &text,
                  std::string_view what,
                  std::string_view with)
 {
-    std::replace(text.begin(), text.end(), what, with);
-    
+    for (std::size_t pos = 0; pos != std::string::npos; pos += with.length())
+    {
+        pos = text.find(what.data(), pos, what.length());
+
+        if (pos != std::string::npos)
+        {
+            text.replace(pos, what.length(), with.data(), with.length());
+        }
+    }
 }
 void clean_text(std::string &text)
 {
     for(std::string_view specialchar : specialChars)
     {
-        replace_all(text, "", specialchar);
+        replace_all(text, specialchar, "");
     }
 }
 
