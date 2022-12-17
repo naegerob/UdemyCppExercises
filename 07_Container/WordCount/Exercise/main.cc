@@ -55,18 +55,28 @@ int main()
     return 0;
 }
 
-void sort_word_counts(WordCountVec &word_counts)
+// function header is set by std-library
+// and must equal to Compare
+bool sortbysec(const WordCountPair &a, const WordCountPair &b)
 {
-    
+    return (a.second > b.second);
 }
 
+void sort_word_counts(WordCountVec &word_counts)
+{
+    // sorts the vector according to second pair entry
+    std::sort(word_counts.begin(), word_counts.end(), sortbysec);
+}
+
+// This function is needed, because map is not user-defined sortable
 WordCountVec map_to_vector(const CountedWordsMap &counted_words)
 {
     WordCountVec wordCountvector = WordCountVec{};
     
     for (const WordCountPair &pair : counted_words)
     {
-        wordCountvector.push_back(WordCountPair(pair.first, pair.second));
+        // add a pair at the end of the vector
+        wordCountvector.push_back(std::make_pair(pair.first, pair.second));
     }
     return wordCountvector;
 }
