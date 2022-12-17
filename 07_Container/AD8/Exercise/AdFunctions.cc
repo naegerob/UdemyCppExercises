@@ -199,35 +199,28 @@ void longitudinal_control(const VehicleType &front_vehicle,
     }
 }
 
-const VehicleType *get_vehicle_array(const LaneAssociationType lane,
+const std::array<VehicleType, NUM_VEHICLES_ON_LANE> &get_vehicle_array(const LaneAssociationType lane,
                                      const NeighborVehiclesType &vehicles)
 {
-    const VehicleType *vehicles_array = nullptr;
-
     switch (lane)
     {
-    case LaneAssociationType::LEFT:
-    {
-        vehicles_array = vehicles.vehicles_left_lane;
-        break;
+        case LaneAssociationType::LEFT:
+        {
+            return vehicles.vehicles_left_lane;
+        }
+        case LaneAssociationType::CENTER:
+        {
+            return vehicles.vehicles_center_lane;
+        }
+        case LaneAssociationType::RIGHT:
+        {
+            return vehicles.vehicles_right_lane;
+        }
+        default:
+        {
+            throw std::invalid_argument("Invalid lane data.");
+        }
     }
-    case LaneAssociationType::CENTER:
-    {
-        vehicles_array = vehicles.vehicles_center_lane;
-        break;
-    }
-    case LaneAssociationType::RIGHT:
-    {
-        vehicles_array = vehicles.vehicles_right_lane;
-        break;
-    }
-    default:
-    {
-        break;
-    }
-    }
-
-    return vehicles_array;
 }
 
 LaneAssociationType get_lane_change_request(
