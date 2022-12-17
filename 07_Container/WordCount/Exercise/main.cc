@@ -54,3 +54,32 @@ int main()
 
     return 0;
 }
+
+void sort_word_counts(WordCountVec &word_counts)
+{
+    
+}
+
+WordCountVec map_to_vector(const CountedWordsMap &counted_words)
+{
+    WordCountVec wordCountvector = WordCountVec{};
+    
+    for (const WordCountPair &pair : counted_words)
+    {
+        wordCountvector.push_back(WordCountPair(pair.first, pair.second));
+    }
+    return wordCountvector;
+}
+
+
+CountedWordsMap count_words(const WordVector &words)
+{
+    CountedWordsMap countWords = CountedWordsMap{};
+
+    for(const std::string word : words)
+    {
+        // Automatically insert an entry with word and value = 0
+        countWords[word]++;
+    }
+    return countWords;
+}
