@@ -1,20 +1,12 @@
+#include <cassert>
 #include <cstdint>
 #include <iostream>
 #include <vector>
 
+#include "lib.h"
 #include "utils.hpp"
 
-bool all_of(const std::vector<std::int32_t> &vector, const std::int32_t value);
-
-bool any_of(const std::vector<std::int32_t> &vector, const std::int32_t value);
-
-bool none_of(const std::vector<std::int32_t> &vector, const std::int32_t value);
-
-std::size_t count(const std::vector<std::int32_t> &vector,
-                  const std::int32_t value);
-
-std::vector<std::int32_t> inclusive_scan(
-    const std::vector<std::int32_t> &vector);
+void test_cases();
 
 int main()
 {
@@ -24,78 +16,33 @@ int main()
     std::cout << "all_of: " << all_of(vector, 5) << '\n';
     std::cout << "any_of: " << any_of(vector, 5) << '\n';
     std::cout << "none_of: " << none_of(vector, 5) << '\n';
-    const auto scan_values = inclusive_scan(vector);
-    std::cout << "inclusive_scan: " << '\n';
-    print_vector(scan_values);
+
+    test_cases();
 
     return 0;
 }
 
-bool all_of(const std::vector<std::int32_t> &vector, const std::int32_t value)
+void test_cases()
 {
-    for (const auto &current_value : vector)
-    {
-        if (current_value != value)
-        {
-            return false;
-        }
-    }
+    const auto vec = std::vector<std::int32_t>{2, 1, -2, 0, -1};
+    const auto vec_all = std::vector<std::int32_t>{2, 2, 2, 2, 2};
 
-    return true;
-}
+    assert(all_of(vec_all, 2) == true);
 
-bool any_of(const std::vector<std::int32_t> &vector, const std::int32_t value)
-{
-    for (const auto &current_value : vector)
-    {
-        if (current_value == value)
-        {
-            return true;
-        }
-    }
+    assert(count(vec, 1) == 1);
+    assert(count(vec, -3) == 0);
 
-    return false;
-}
+    assert(any_of(vec, 2) == true);
+    assert(any_of(vec, 1) == true);
+    assert(any_of(vec, 0) == true);
+    assert(any_of(vec, -1) == true);
+    assert(any_of(vec, -2) == true);
 
-bool none_of(const std::vector<std::int32_t> &vector, const std::int32_t value)
-{
-    for (const auto &current_value : vector)
-    {
-        if (current_value == value)
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-std::size_t count(const std::vector<std::int32_t> &vector,
-                  const std::int32_t value)
-{
-    auto counter = std::size_t{0};
-
-    for (const auto &current_value : vector)
-    {
-        if (current_value == value)
-        {
-            counter++;
-        }
-    }
-
-    return counter;
-}
-
-std::vector<std::int32_t> inclusive_scan(
-    const std::vector<std::int32_t> &vector)
-{
-    auto result = std::vector<std::int32_t>(vector);
-
-    result[0] = vector[0];
-    for (std::size_t i = 1; i < vector.size(); i++)
-    {
-        result[i] = result[i - 1] + vector[i];
-    }
-
-    return result;
+    assert(none_of(vec, 3) == true);
+    assert(none_of(vec, 2) == false);
+    assert(none_of(vec, 1) == false);
+    assert(none_of(vec, 0) == false);
+    assert(none_of(vec, -1) == false);
+    assert(none_of(vec, -2) == false);
+    assert(none_of(vec, -3) == true);
 }

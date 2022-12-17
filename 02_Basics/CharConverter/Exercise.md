@@ -5,15 +5,15 @@ In this exercise, you have to use the datatype **char** to convert/check certain
 Implement the following checks:
 
 ```cpp
-bool is_numeric(char character);
+bool is_numeric(const char character);
 
-bool is_alpha(char character);
+bool is_alpha(const char character);
 
-bool is_alpha_numeric(char character);
+bool is_alpha_numeric(const char character);
 
-bool is_upper_case(char character);
+bool is_upper_case(const char character);
 
-bool is_lower_case(char character);
+bool is_lower_case(const char character);
 ```
 
 These functions should return **true** or **false**.
@@ -37,9 +37,9 @@ You do not have to look up the ASCII table for this exercise, but you can do so.
 Afterward, implement the following conversion functions:
 
 ```cpp
-char to_upper_case(char character);
+char to_upper_case(const char character);
 
-char to_lower_case(char character);
+char to_lower_case(const char character);
 ```
 
 These should return the **converted** character.
@@ -55,14 +55,16 @@ int main()
     std::cin >> input_character;
 
     std::cout << std::boolalpha;
-    std::cout << "is_numeric: " << is_numeric(input_character) << '\n';
-    std::cout << "is_alpha: " << is_alpha(input_character) << '\n';
-    std::cout << "is_alpha_numeric: " << is_alpha_numeric(input_character) << '\n';
-    std::cout << "is_upper_case: " << is_upper_case(input_character) << '\n';
-    std::cout << "is_lower_case: " << is_lower_case(input_character) << '\n';
+    std::cout << "numeric: " << is_numeric(input_character) << '\n';
+    std::cout << "alpha: " << is_alpha(input_character) << '\n';
+    std::cout << "alpha_numeric: " << is_alpha_numeric(input_character) << '\n';
+    std::cout << "upper_case: " << is_upper_case(input_character) << '\n';
+    std::cout << "lower_case: " << is_lower_case(input_character) << '\n';
     std::cout << std::dec;
     std::cout << "to_upper_case: " << to_upper_case(input_character) << '\n';
     std::cout << "to_lower_case: " << to_lower_case(input_character) << '\n';
+
+    test_cases(); // These tests should not fail!
 
     return 0;
 }

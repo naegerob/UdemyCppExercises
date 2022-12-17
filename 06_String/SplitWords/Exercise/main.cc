@@ -1,11 +1,10 @@
-#include <algorithm>
-#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <vector>
 
+#include "Lib.h"
 #include "utils.hpp"
 
 using WordCountPair = std::pair<std::string, std::size_t>;
@@ -24,6 +23,10 @@ int main()
 {
     auto text =
         readFile("C:\\Github\\General_repository\\Programming\\C++\\UdemyCppExercises\\06_String\\SplitWords\\Exercise\\text.txt");
+int main()
+{
+    auto text = readFile("C:/Users/Jan/OneDrive/_Coding/UdemyCppExercises/"
+                         "06_String/SplitWords/Solution/text.txt");
     std::cout << text << '\n' << '\n';
 
     clean_text(text);
