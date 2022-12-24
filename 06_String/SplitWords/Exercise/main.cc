@@ -32,8 +32,8 @@ int main()
     clean_text(text);
     std::cout << text << '\n' << '\n';
 
-    const auto splittedText = split_text(text, ' ');
-    print_vector(splittedText);
+    //const auto splittedText = split_text(text, ' ');
+    //print_vector(splittedText);
 
     return 0;
 }
@@ -70,8 +70,9 @@ std::vector<std::string> split_text(const std::string &text, char delimiter)
     std::cout << word << std::endl;
     do
     {
-        word = text.substr(delimiter);
+  //      word = text.substr(delimiter);
     }while(word != "");
     
     std::cout << word << std::endl;
+    return wordlist;
 }
