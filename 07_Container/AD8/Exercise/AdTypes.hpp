@@ -1,8 +1,10 @@
 #pragma once
 
 #include <cstdint>
+#include <array>
 
 #include "AdConstants.hpp"
+#include "DataLoaderConstants.hpp"
 
 enum class LaneAssociationType
 {
@@ -22,7 +24,8 @@ struct VehicleType
 
 struct NeighborVehiclesType
 {
-    VehicleType vehicles_left_lane[NUM_VEHICLES_ON_LANE];
-    VehicleType vehicles_center_lane[NUM_VEHICLES_ON_LANE];
-    VehicleType vehicles_right_lane[NUM_VEHICLES_ON_LANE];
+    std::array<VehicleType, NUM_VEHICLES_ON_LANE> vehicles_left_lane;
+    std::array<VehicleType, NUM_VEHICLES_ON_LANE> vehicles_center_lane;
+    std::array<VehicleType, NUM_VEHICLES_ON_LANE> vehicles_right_lane;
 };
+

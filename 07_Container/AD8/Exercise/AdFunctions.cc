@@ -1,4 +1,5 @@
 #include <iostream>
+#include <array>
 
 #include "AdConstants.hpp"
 #include "AdFunctions.hpp"
