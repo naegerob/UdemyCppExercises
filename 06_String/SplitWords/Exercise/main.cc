@@ -23,10 +23,7 @@ int main()
 {
     auto text =
         readFile("C:\\Github\\General_repository\\Programming\\C++\\UdemyCppExercises\\06_String\\SplitWords\\Exercise\\text.txt");
-int main()
-{
-    auto text = readFile("C:/Users/Jan/OneDrive/_Coding/UdemyCppExercises/"
-                         "06_String/SplitWords/Solution/text.txt");
+
     std::cout << text << '\n' << '\n';
 
     clean_text(text);
@@ -68,10 +65,7 @@ std::vector<std::string> split_text(const std::string &text, char delimiter)
     std::string word = "";
 
     std::cout << word << std::endl;
-    do
-    {
-  //      word = text.substr(delimiter);
-    }while(word != "");
+
     
     std::cout << word << std::endl;
     return wordlist;

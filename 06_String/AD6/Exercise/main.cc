@@ -3,14 +3,35 @@
 #include <iostream>
 #include <numeric>
 #include <thread>
+#include <filesystem>
 
 #include "AdFunctions.hpp"
 #include "AdTypes.hpp"
 
 #include "utils.hpp"
 
-int main()
+namespace fs = std::filesystem;
+
+int main(int argc, char **argv)
 {
+    const fs::path folderPath = fs::current_path();
+    fs::path egoFile = folderPath;
+    fs::path vehiclesFile = folderPath;
+    if(argc == 2U)
+    {
+        egoFile /= argv[0];
+        vehiclesFile /= argv[1];
+    }
+    else{
+        // No data or too less paths given
+        // Folder and file needs to be appended like this to be correct
+        // Operator overlading: / -> appends
+        egoFile.append("data"); // Folder
+        egoFile.append("ego_data.json"); // File
+        vehiclesFile.append("data");
+        vehiclesFile.append("vehicle_data.json");
+    }
+
     auto ego_vehicle = VehicleType{};
     auto vehicles = NeighborVehiclesType{};
 
