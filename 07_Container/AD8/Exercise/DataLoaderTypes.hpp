@@ -13,5 +13,4 @@ struct VehicleLogData
     std::array<float, NUM_ITERATIONS> speeds_mps;
 };
 
-using VehiclesLogData = std::array<VehicleLogData, NUM_VEHICLES_ON_LANE>;
-using VehiclesData = std::vector<std::vector<VehicleType>>;
+using VehiclesLogData = std::array<VehicleLogData, NUM_VEHICLES>;

@@ -6,7 +6,7 @@
 #include "DataLoaderConstants.hpp"
 #include "DataLoaderTypes.hpp"
 
-static auto vehicles_log_data = VehiclesLogData{};
+static VehiclesLogData vehicles_log_data = VehiclesLogData{};
 
 void init_ego_vehicle(std::string_view filepath, VehicleType &ego_vehicle)
 {
@@ -48,6 +48,7 @@ void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles)
         vehicle_log_data.lane = lane;
         vehicle_log_data.start_distance_m = distance_m;
         vehicle_log_data.speeds_mps = vehicle_data["Speed"];
+        
     }
 
     set_vehicle_start_data(vehicles.vehicles_left_lane[0],
