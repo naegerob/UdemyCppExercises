@@ -19,4 +19,16 @@ T get_rand_float(const T &lower_limit, const T &upper_limit)
 
 class AirConditioner
 {
+private:
+    float curr_temp;
+    float target_temp;
+
+    bool heat(int duration);
+    bool cool(int duration);
+public:
+    AirConditioner(float curr_temp_);
+
+    float measure();
+    int activate(int curr_temp);
+
 };

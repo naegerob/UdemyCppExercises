@@ -54,7 +54,7 @@ void init_vehicles(std::string_view filepath, NeighborVehiclesType &vehicles)
     set_vehicle_start_data(vehicles.vehicles_left_lane[0],
                            vehicles_log_data[0]);
     set_vehicle_start_data(vehicles.vehicles_left_lane[1],
-                           vehicles_log_data[1]);
+                           vehicles_log_data[1]); 
     set_vehicle_start_data(vehicles.vehicles_center_lane[0],
                            vehicles_log_data[2]);
     set_vehicle_start_data(vehicles.vehicles_center_lane[1],
