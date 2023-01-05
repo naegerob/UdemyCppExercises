@@ -5,7 +5,7 @@
 
 int main()
 {
-    auto ac = AirConditioner{20};
+    auto ac = AirConditioner{5};
     auto ac_state_machine = AcStateMachine{&ac};
 
     while (true)
