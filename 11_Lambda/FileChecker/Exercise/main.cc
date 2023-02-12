@@ -9,7 +9,7 @@
 int main(int argc, char **argv)
 {
     auto dir = fs::path{};
-
+	
     if (argc != 2)
     {
         dir /= fs::current_path();
