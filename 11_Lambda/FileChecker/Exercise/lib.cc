@@ -21,7 +21,7 @@ int number_of_header_files(const FileVec &files)
 	auto fileExists = [extensions](const fs::path& file){	
 		return file_extension_check(extensions, file);
 	};
-	// count_if requires a Lambda func
+	// count_if requires a function call with one parameter and a return type of booleans
 	return std::count_if(files.begin(), files.end(), fileExists);
 
 }
