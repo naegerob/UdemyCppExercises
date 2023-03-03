@@ -8,6 +8,9 @@ constexpr auto WINDOW_FLAGS_CLEAN = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFla
                                     ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize;
 constexpr auto TABLE_FLAGS = ImGuiTableFlags_BordersV | ImGuiTableFlags_BordersOuter;
 
+/* Position  */
+const std::vector<std::string_view> position = {"Ego", "FrontLeft", "RearLeft", "FrontCenter", "RearCenter", "FrontRight", "RearRight"};
+
 /* GENERAL WINDOW SETTINGS */
 constexpr auto WINDOWS_HEIGHT{720.0F};
 constexpr auto WINDOWS_WIDTH{1280.0F};

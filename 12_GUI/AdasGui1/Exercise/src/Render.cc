@@ -27,18 +27,28 @@ void plot_lanes(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehi
 
     if (ImPlot::BeginPlot("Lanes"))
     {
-
         ImPlot::EndPlot();
     }
 }
 
+void plot_line_in_table(const VehicleType vehicle)
+{
+	ImGui::TableNextRow();			// Switch to next row
+	ImGui::TableSetColumnIndex(0); // Set row in column
+	ImGui::Text("%s", position[vehicle.id + 1]);
+	ImGui::TableSetColumnIndex(1);
+	ImGui::Text("%d", vehicle.id);
+	ImGui::TableSetColumnIndex(2);
+	ImGui::Text("%d", vehicle.lane);
+	ImGui::TableSetColumnIndex(3);
+	ImGui::Text("%.4f", vehicle.distance_m);
+	ImGui::TableSetColumnIndex(4);
+	ImGui::Text("%.4f", vehicle.speed_mps);
+}
+
 void plot_table(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehicles)
 {
-    (void)ego_vehicle; // to avoid warning
-    (void)vehicles;    // to avoid warning
-
     const auto num_cols = std::size_t{ 5 };
-	const auto num_rows = std::size_t{ 5 };
 
 	/// TODO: Add code here
 	ImGui::SetNextWindowPos(ImVec2(0.0F, BELOW_LANES));
@@ -48,6 +58,7 @@ void plot_table(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehi
     {
         if (ImGui::BeginTable("Table", num_cols, TABLE_FLAGS))
         {
+			// Define header rows
 			ImGui::TableSetupColumn("Pos");
 			ImGui::TableSetupColumn("Id");
 			ImGui::TableSetupColumn("Lane");
@@ -55,28 +66,15 @@ void plot_table(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehi
 			ImGui::TableSetupColumn("Speed");
 			ImGui::TableHeadersRow();
 
-			// Table data
-			for (int i = 0; i < num_cols; i++)
-			{
-				
-				ImGui::TableNextRow();			// Switch to next row
-				ImGui::TableSetColumnIndex(0); // Set row in column
-				//ImGui::TableNextRow();
-				ImGui::Text("Ego");
-				//ImGui::TableNextRow();
-				ImGui::TableSetColumnIndex(1);
-				ImGui::Text("%d", 2);
-				//ImGui::TableNextRow();
-				ImGui::TableSetColumnIndex(2);
-				ImGui::Text("%d", 77);
-				//ImGui::TableNextRow();
-				ImGui::TableSetColumnIndex(3);
-				ImGui::Text("%.2f", 3.6);
-				//ImGui::TableNextRow();
-				ImGui::TableSetColumnIndex(4);
-				ImGui::Text("%.2f", 8.5);
-			}
-
+			// insert data in table
+			plot_line_in_table(ego_vehicle);
+			plot_line_in_table(vehicles.vehicles_left_lane[0]);
+			plot_line_in_table(vehicles.vehicles_left_lane[1]);
+			plot_line_in_table(vehicles.vehicles_center_lane[0]);
+			plot_line_in_table(vehicles.vehicles_center_lane[1]);
+			plot_line_in_table(vehicles.vehicles_right_lane[0]);
+			plot_line_in_table(vehicles.vehicles_right_lane[1]);
+			
 			ImGui::EndTable();
         }
 
