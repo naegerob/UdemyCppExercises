@@ -24,10 +24,13 @@ void plot_lanes(const VehicleType &ego_vehicle, const NeighborVehiclesType &vehi
 {
     (void)ego_vehicle; // to avoid warning
     (void)vehicles;    // to avoid warning
+	const uint16_t xAxisLimit = 100U;
+	const float yAxisLimit = 4.5f;
 
     if (ImPlot::BeginPlot("Lanes"))
     {
-
+		ImPlot::SetupAxesLimits(-xAxisLimit, xAxisLimit, yAxisLimit, -yAxisLimit);
+		
         ImPlot::EndPlot();
     }
 }
